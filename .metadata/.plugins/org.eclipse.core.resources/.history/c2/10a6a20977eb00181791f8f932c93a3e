@@ -1,0 +1,56 @@
+package Repository.User;
+
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import Shop.domainUserAPI.User;
+
+public class UserRepositoryFileImplementation implements IUserRepository
+{
+	public User getUserByID(int id) throws ClassNotFoundException, IOException {  
+		List<User>users=getAllUsers();
+		for(int i=0; i<users.size(); i++) {
+			if(users.get(i).getID()==id) {
+				return users.get(i);
+			}
+		}
+		return null;
+	}
+
+	public List<User> getAllUsers() throws IOException, ClassNotFoundException {
+		
+	List<User> users=new ArrayList<User>();
+		 FileInputStream fileIn = new FileInputStream("users.bin");
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+	    while (true) {
+			    try {
+			      User obj = (User) in.readObject();
+			      users.add(obj);
+			    } 
+			    catch (EOFException e) {
+			      break;
+			    }
+	    }
+		return users;
+	}
+
+	public void saveUser(User user) throws ClassNotFoundException, IOException {
+	
+    List<User> allUsers=getAllUsers();
+	FileOutputStream fos = new FileOutputStream("users.bin");
+    ObjectOutputStream oos = new ObjectOutputStream(fos);
+    for(int i=0; i<allUsers.size(); i++) {
+    	oos.writeObject(allUsers.get(i));
+    }
+    oos.writeObject(user);
+    oos.close();
+		
+	}
+	
+}

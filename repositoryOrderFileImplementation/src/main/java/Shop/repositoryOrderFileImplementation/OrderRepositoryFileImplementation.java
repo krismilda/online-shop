@@ -1,0 +1,67 @@
+package Shop.repositoryOrderFileImplementation;
+
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import Shop.RepositoryOrderAPI.IOrderRepository;
+import Shop.domainOrderAPI.Order;
+
+public class OrderRepositoryFileImplementation implements IOrderRepository {
+
+	public Order getOrderByID(int id) throws ClassNotFoundException, IOException {
+		List<Order> orders = getAllOrders();
+		for (int i = 0; i < orders.size(); i++) {
+			if (orders.get(i).getID() == id) {
+				return orders.get(i);
+			}
+		}
+		return null;
+	}
+
+	public List<Order> getAllOrders() throws ClassNotFoundException, IOException {
+
+		List<Order> orders = new ArrayList<Order>();
+		FileInputStream fileIn = new FileInputStream("C:\\\\Users\\\\Milda\\\\eclipse-workspace2\\\\configurations\\orders.bin");
+		ObjectInputStream in = new ObjectInputStream(fileIn);
+		while (true) {
+			try {
+				Order obj = (Order) in.readObject();
+				orders.add(obj);
+			} catch (EOFException e) {
+				break;
+			}
+		}
+		return orders;
+	}
+
+	public Order saveOrder(Order order) throws ClassNotFoundException, IOException {
+		List<Order> allOrders = getAllOrders();
+		FileOutputStream fos = new FileOutputStream("C:\\Users\\Milda\\eclipse-workspace2\\configurations\\orders.bin");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		for (int i = 0; i < allOrders.size(); i++) {
+			oos.writeObject(allOrders.get(i));
+		}
+		oos.writeObject(order);
+		oos.close();
+		return order;
+	}
+
+	public void updateOrder(Order order) throws ClassNotFoundException, IOException {
+		List<Order> allOrders = getAllOrders();
+		FileOutputStream fos = new FileOutputStream("C:\\Users\\Milda\\eclipse-workspace2\\configurations\\orders.bin");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		for (int i = 0; i < allOrders.size(); i++) {
+			if (allOrders.get(i).getID() != order.getID()) {
+				oos.writeObject(allOrders.get(i));
+			}
+		}
+		oos.writeObject(order);
+		oos.close();
+	}
+}

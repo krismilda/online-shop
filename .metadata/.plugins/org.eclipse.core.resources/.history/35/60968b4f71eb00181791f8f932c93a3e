@@ -1,0 +1,17 @@
+package UserAbstractFactory;
+
+import Domain.Users.SimpleFacebookUser;
+import Shop.domainPremiumFacebookUser.PremiumFacebookUser;
+import Shop.domainUserAPI.User;
+
+public class FacebookUserFactory implements IUserFactory 
+{
+
+	public User createSimpleUser(String name, String email, String address, String surname) {
+		return new SimpleFacebookUser(name, email, address, surname);
+	}
+
+	public User createPremiumUser(String name, String email, String address, String surname) {
+		return new PremiumFacebookUser(name, email, address, surname);
+	}
+}

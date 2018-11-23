@@ -1,0 +1,8 @@
+package myShop.configurations;
+
+public class Snippet {
+	public static void main(String[] args) {
+		style="background-color:powderblue;"
+	}
+}
+

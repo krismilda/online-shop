@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="Shop.internationalOrderFactory.InternationalOrderFactory"/>
+<fullyQualifiedTypeName name="javax.xml.parsers.FactoryConfigurationError"/>
+<fullyQualifiedTypeName name="Shop.facadeServicesDeliveryAPI.IDeliveryServiceAPI"/>
+<fullyQualifiedTypeName name="Shop.domainOrderAPI.Order"/>
+<fullyQualifiedTypeName name="Shop.domainServiceOrderAPI.IOrderServiceAPI"/>
+<fullyQualifiedTypeName name="Shop.domainServiceOrderImplementation.OrderServiceImplementation"/>
+<fullyQualifiedTypeName name="Shop.domainServiceUserAPIImplementation.UserServiceAPIImplementation"/>
+<fullyQualifiedTypeName name="Shop.domainServiceProduct_Implementation.ProductServiceImplementation"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.ComponentScan"/>
+<fullyQualifiedTypeName name="Shop.domainUserAPI.User"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.Import"/>
+<fullyQualifiedTypeName name="Shop.christmasDiscount_Implementation.ChristmasDiscount"/>
+<fullyQualifiedTypeName name="Shop.facebookUserFactory.FacebookUserFactory"/>
+</qualifiedTypeNameHistroy>

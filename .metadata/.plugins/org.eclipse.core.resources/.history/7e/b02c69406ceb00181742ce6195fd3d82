@@ -1,0 +1,12 @@
+package DomainAPI.Products;
+
+import java.io.IOException;
+import java.util.List;
+
+import Domain.Products.IProduct;
+
+
+public interface ProductServiceAPI {
+	
+	public double getTotalPrice(IProduct product);
+}

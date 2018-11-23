@@ -1,0 +1,26 @@
+package TotalPriceFacadeService;
+
+import java.io.IOException;
+
+import Domain.Products.IProduct;
+import DomainAPI.Products.IProductFactory;
+import DomainAPI.Products.ProductServiceAPI;
+import Repository.Products.IProductRepository;
+
+public class TotalPriceFacadeService implements ITotalPriceFacadeService
+{
+	private ProductServiceAPI productServiceApi;
+	private IProductRepository productRepository;
+
+	public TotalPriceFacadeService(ProductServiceAPI productServiceApi,IProductRepository productRepository) {
+		this.productServiceApi=productServiceApi;
+		this.productRepository=productRepository;
+	}
+	@Override
+	public double getTotalPrice(int id) throws ClassNotFoundException, IOException {
+		IProduct product = productRepository.getProductByID(id);
+		double price=productServiceApi.getTotalPrice(product);
+		return price;
+	}
+
+}

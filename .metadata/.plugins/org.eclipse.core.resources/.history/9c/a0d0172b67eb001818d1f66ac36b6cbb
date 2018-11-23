@@ -1,0 +1,13 @@
+package DomainAPI.Order;
+
+import Domain.Order.LocalOrder;
+import Domain.Order.Order;
+import Domain.Order.Order;
+
+public class LocalOrderFactory implements IOrderFactory
+{
+	public Order createOrder(int userId, int productID) {
+		return new LocalOrder (userId, productID);
+	}
+
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Elektroninė parduotuvė</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h2>Naudotojo duomenys</h2>
+        <table border="2px" margin="2px">
+            <tr>
+            	<td>ID:</td>
+            	<td th:text="${user.getID()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>Vardas:</td>
+            	<td th:text="${user.getName()}">&nbsp;</td>
+            </tr>
+             <tr>
+            	<td>Pavardė:</td>
+            	<td th:text="${user.gGetSurname()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>Adresas:</td>
+            	<td th:text="${user.getAddress()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>El.paštas:</td>
+            	<td th:text="${user.getEmail()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>Tipas</td>
+            	<td th:text="${user.getType()}">&nbsp;</td>
+            </tr>
+           <tr>
+            	<td></td>
+            	<td><a th:href="'/order/AllOrders/'+${user.getID()}">Visi užsakymai</a></td>
+           </tr>
+    </table>
+    </body>
+</html>

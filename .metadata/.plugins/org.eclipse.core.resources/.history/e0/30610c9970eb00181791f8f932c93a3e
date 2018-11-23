@@ -1,0 +1,11 @@
+package DomainAPI.User;
+
+import java.io.IOException;
+import java.util.List;
+
+import Domain.Users.User;
+
+public interface UserServiceAPI {
+
+	public String GetWelcomeMessage(User user);
+}

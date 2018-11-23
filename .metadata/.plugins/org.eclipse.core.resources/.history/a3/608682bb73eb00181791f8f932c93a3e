@@ -1,0 +1,17 @@
+package DomainAPI.Order;
+
+import java.io.IOException;
+import java.util.List;
+
+import Repository.Orders.IOrderRepository;
+import Shop.domainOrderAPI.Order;
+import Shop.domainServiceOrderAPI.IOrderServiceAPI;
+
+public class OrderServiceImplementation implements IOrderServiceAPI
+{
+	public void setDeliveryPayment(Order order, String delivery, String payment){
+		order.setPaymentDetails(payment);
+		order.setDeliveryDetails(delivery);
+	}
+
+}

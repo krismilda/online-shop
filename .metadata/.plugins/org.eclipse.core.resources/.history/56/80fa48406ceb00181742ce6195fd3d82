@@ -1,0 +1,10 @@
+package DomainAPI.Products;
+
+import Domain.Products.IProduct;
+
+
+public interface IProductFactory
+{
+	public IProduct createTV(double primeCost, String name);
+	public IProduct createComputer (double primeCost, String name);
+}

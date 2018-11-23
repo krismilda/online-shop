@@ -1,0 +1,32 @@
+package DomainAPI.Products;
+
+import java.io.IOException;
+import java.util.List;
+
+import DomainAPI.Products.ProductServiceAPI;
+import IDiscount.IDiscount;
+import PVM.IPVM;
+import Repository.Products.IProductRepository;
+import Shop.domainProductAPI.IProduct;
+
+
+public class ProductServiceImplementation implements ProductServiceAPI
+{
+	private IDiscount discount;
+	private IPVM pvm;
+	
+	public ProductServiceImplementation(IDiscount discount, IPVM pvm) {
+		this.pvm=pvm;
+		this.discount=discount;
+	}
+	@Override
+	public double getTotalPrice(IProduct product) {
+			double primeCost=product.getPrimeCost();
+			double percentage=product.getMarkupPricePrecentage();
+			double total_price=primeCost*percentage;
+			double pvm_price=pvm.calculatePVM(total_price);
+			double discount_price=discount.calculateDiscount(total_price);
+			return total_price+pvm_price-discount_price;
+	}
+
+}

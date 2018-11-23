@@ -1,0 +1,18 @@
+package DomainAPI.User;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import Repository.User.IUserRepository;
+import Shop.domainUserAPI.User;
+import Shop.userFactoryAPI.IUserFactory;
+
+public class UserServiceAPIImplementation implements UserServiceAPI
+{
+	@Override
+	public String GetWelcomeMessage(User user) {
+		String welcome = user.getName()+", sveikiname prisijungus prie sistemos";
+		return welcome;
+	}
+}

@@ -1,0 +1,13 @@
+package Shop.noDiscount_Implementation;
+
+import Shop.discountAPI.IDiscount;
+
+public class NoDiscount implements IDiscount
+{
+
+	@Override
+	public double calculateDiscount(double price) {
+		return 0;
+	}
+
+}

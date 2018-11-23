@@ -1,0 +1,10 @@
+package IntegrationServices.DeliveryCompany;
+
+public class Courier implements IDeliveryService
+{
+
+	public String deliver(String address, String productName) {
+		return productName+" bus pristatytas į namus adresu "+address;
+	}
+
+}

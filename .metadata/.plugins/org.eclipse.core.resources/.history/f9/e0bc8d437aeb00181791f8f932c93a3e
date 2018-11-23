@@ -1,0 +1,46 @@
+package facadeServices.User;
+
+import java.io.IOException;
+import java.util.List;
+
+import Shop.domainServiceUserAPI.UserServiceAPI;
+import Shop.domainUserAPI.User;
+import Shop.integrationServicesBankAPI.IBankService;
+import Shop.repositoryUserAPI.IUserRepository;
+import Shop.userFactoryAPI.IUserFactory;
+
+public class UserService implements IUserService {
+
+	private UserServiceAPI userServiceAPI;
+	private IBankService bankService;
+	private IUserFactory userFactory;
+	private IUserRepository userRepository;
+
+	public UserService(UserServiceAPI userServiceAPI, IBankService bankService,IUserFactory userFactory, IUserRepository userRepository) {
+		this.userServiceAPI = userServiceAPI;
+		this.bankService = bankService;
+		this.userFactory=userFactory;
+		this.userRepository=userRepository;
+	}
+
+	public User GetUserByID(int id) throws ClassNotFoundException, IOException {
+		return userRepository.getUserByID(id);
+	}
+
+	public List<User> GetAllUsers() throws ClassNotFoundException, IOException {
+		return userRepository.getAllUsers();
+	}
+
+	public String CreateUser(String name, String email, String address, String surname, boolean isPremium)
+			throws IOException, ClassNotFoundException {
+		User user;
+		if (bankService.pay() && isPremium) {
+			user=userFactory.createPremiumUser(name, email, address, surname);
+			userRepository.saveUser(user);
+		} else {
+			user=userFactory.createSimpleUser(name, email, address, surname);
+			userRepository.saveUser(user);
+		}
+		return userServiceAPI.GetWelcomeMessage(user);
+	}
+}

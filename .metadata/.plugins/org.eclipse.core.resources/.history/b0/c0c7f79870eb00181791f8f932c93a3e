@@ -1,0 +1,15 @@
+package Domain.Users;
+
+public abstract class SimpleUser extends User
+{
+	SimpleUser (String name, String email, String address, String surname){
+		super (name, email, address, surname);
+	}
+
+	public boolean checkIsPremium() {
+		return false;
+	}
+	
+	public abstract String getType();
+	public abstract void sendNotification();
+}

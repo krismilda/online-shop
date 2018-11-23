@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Elektroninė parduotuvė</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h2>Produkto duomenys</h2>
+        <table border="2px" margin="2px">
+            <tr>
+            	<td>ID:</td>
+            	<td th:text="${product.getID()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>Pavadinimas:</td>
+            	<td th:text="${product.getName()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>Savikaina:</td>
+            	<td th:text="${product.getPrimeCost()}">&nbsp;</td>
+            </tr>
+             <tr>
+            	<td>Tipas</td>
+            	<td th:text="${product.getType()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>Kilmės šalis:</td>
+            	<td th:text="${product.getCountry()}">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td>Bendra kaina:</td>
+            	<td th:text="${price}">&nbsp;</td>
+            </tr>
+    </table>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+package Domain.Products;
+
+import Shop.domainTVAPI.ITV;
+
+public class TVFromGermany extends ITV
+{
+	public TVFromGermany(String name, double primeCost) {
+		super(name, primeCost);
+	}
+
+	@Override
+	public double getMarkupPricePrecentage() {
+		return 2.5;
+	}
+
+	@Override
+	public String getCountry() {
+		return "Germany";
+	}
+}

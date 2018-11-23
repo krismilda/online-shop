@@ -1,0 +1,85 @@
+package Shop.facadeServicesOrderImplementation;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import Shop.facadeServicesDeliveryAPI.IDeliveryServiceAPI;
+import Shop.OrderFactoryAPI.IOrderFactory;
+import Shop.RepositoryOrderAPI.IOrderRepository;
+import Shop.domainOrderAPI.Order;
+import Shop.domainProductAPI.IProduct;
+import Shop.domainServiceOrderAPI.IOrderServiceAPI;
+import Shop.domainServiceProductAPI.ProductServiceAPI;
+import Shop.domainServiceUserAPI.UserServiceAPI;
+import Shop.domainUserAPI.User;
+import Shop.facadeServicesOrderAPI.IOrderService;
+import Shop.integrationServicesBankAPI.IBankService;
+import Shop.integrationServicesDeliveryAPI.IDeliveryService;
+import Shop.repositoryProductAPI.IProductRepository;
+import Shop.repositoryUserAPI.IUserRepository;
+
+
+public class OrderService implements IOrderService
+{
+
+	private IBankService bankservice;
+	private IOrderServiceAPI orderServiceAPI;
+	private IOrderFactory orderFactory;
+	private IOrderRepository orderRepository;
+	private IUserRepository userRepository;
+	private IProductRepository productRepository;
+	private IDeliveryServiceAPI deliveryService;
+	public OrderService (IBankService bankService,
+			IOrderServiceAPI orderServiceAPI,
+			IOrderFactory orderFactory,
+			IOrderRepository orderRepository,
+			IUserRepository userRepository,
+			IProductRepository productRepository,
+			IDeliveryServiceAPI deliveryService) {
+		this.bankservice=bankService;
+		this.orderServiceAPI=orderServiceAPI;
+		this.orderFactory=orderFactory;
+		this.orderRepository=orderRepository;
+		this.userRepository=userRepository;
+		this.productRepository=productRepository;
+		this.deliveryService=deliveryService;
+	}
+	
+	public List<Order> getAllOrder () throws ClassNotFoundException, IOException{
+		return orderRepository.getAllOrders();
+	}
+	
+	public List<Order> GetAllOrdersByUserID(int id) throws ClassNotFoundException, IOException {
+		List<Order> orders;
+		List<Order> userOrder=new ArrayList<Order>();
+			orders = orderRepository.getAllOrders();
+			for(int i=0; i<orders.size(); i++) {
+				if(orders.get(i).getUserID()==id) {
+					userOrder.add(orders.get(i));
+				}
+			}
+		return userOrder;
+	}
+
+	public void CreateOrder(int userID, int productID) throws ClassNotFoundException, IOException {
+		Order order=orderFactory.createOrder(userID, productID);
+		orderRepository.saveOrder(order);
+		String delivery="Pristatymo kaina: "+order.getDeliveryPrice()+" "+this.getDelivery(userID, productID);
+		String payment=this.getPaymentDetails(productID, order);
+		orderServiceAPI.setDeliveryPayment(order, delivery, payment);
+		orderRepository.updateOrder(order);
+	}
+	
+	public String getDelivery (int userID, int productID) throws ClassNotFoundException, IOException {
+		User user=userRepository.getUserByID(userID);
+		IProduct product=productRepository.getProductByID(productID);
+		String delivery=deliveryService.deliveryDetails(user.getAddress(), product.getName());
+		return delivery;
+	}
+
+	public String getPaymentDetails(int productID, Order order) throws ClassNotFoundException, IOException {
+		String payment=bankservice.getPaymentDetails(productID);
+		return payment;
+	}
+}

@@ -1,0 +1,21 @@
+package DomainAPI.Products;
+
+import Domain.Products.TVFromChina;
+import Shop.domainComputerFromChina.ComputerFromChina;
+import Shop.domainComputerFromGermany.ComputerFromGermany;
+import Shop.domainProductAPI.IProduct;
+
+public class ChinaProductFactory implements IProductFactory
+{
+
+	@Override
+	public IProduct createTV(double primeCost, String name) {
+		return new TVFromChina(name, primeCost);
+	}
+
+	@Override
+	public IProduct createComputer(double primeCost, String name) {
+		return new ComputerFromChina(name, primeCost);
+	}
+
+}

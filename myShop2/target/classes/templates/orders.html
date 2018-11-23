@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Elektroninė parduotuvė</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h2>Užsakymų sąrašas</h2>
+        <table border="2px" margin="2px">
+        <th>
+        <td>Prekės ID</td>
+        <td>Apmokėjimas</td>
+        <td>Pristatymas</td>
+        <td>Tipas</td>
+        </th>
+            <tr th:each="order : ${orders}">
+            <td></td>
+            <td th:text="${order.getProductID()}">&nbsp;</td>
+            <td th:text="${order.getPaymentDetails()}">&nbsp;</td>
+            <td th:text="${order.getDeliveryDetails()}">&nbsp;</td>
+            <td th:text="${order.getOrderType()}">&nbsp;</td>
+    </tr>
+    </table>
+    </body>
+</html>

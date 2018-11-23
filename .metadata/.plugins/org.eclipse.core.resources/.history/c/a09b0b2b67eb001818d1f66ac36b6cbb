@@ -1,0 +1,10 @@
+package DomainAPI.Order;
+
+import java.io.IOException;
+import java.util.List;
+
+import Domain.Order.Order;
+
+public interface IOrderServiceAPI {
+	public void setDeliveryPayment(Order order, String delivery, String payment) throws ClassNotFoundException, IOException;
+}

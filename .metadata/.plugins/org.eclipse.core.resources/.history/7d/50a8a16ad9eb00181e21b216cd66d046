@@ -1,0 +1,53 @@
+package Shop.ControllerOrder;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import Shop.facadeServicesOrderAPI.IOrderService;
+
+@Controller
+public class OrderController {
+	
+	@Autowired
+	IOrderService orderService;
+
+	@RequestMapping("/order/AllOrders/{id}")
+	public String viewAllOrders(@PathVariable("id") String id, Model model) {
+		
+		int user_id = Integer.parseInt(id);
+		try {
+			model.addAttribute("orders", orderService.GetAllOrdersByUserID(user_id));
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "orders";
+	}
+	
+	@RequestMapping("/order/create")
+	public String createProduct(@RequestParam("userID") String userIDs,@RequestParam("productID") String productIDs, Model model) {
+		int user_id = Integer.parseInt(userIDs);
+		int productID = Integer.parseInt(productIDs);
+		try {
+			orderService.CreateOrder(user_id, productID);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("userID", userIDs);
+		return "createdOrder";
+	}
+}

@@ -1,0 +1,149 @@
+package Shop.myShop;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import DeliveryService.EstonianDeliveryService;
+import DeliveryService.IDeliveryServiceAPI;
+import DeliveryService.LithuanianDeliveryService;
+import DomainAPI.Order.OrderServiceImplementation;
+import FacadeSerivices.Order.IOrderService;
+import FacadeSerivices.Order.OrderService;
+import FacadeServiceProduct.IProductService;
+import FacadeServiceProduct.ProductService;
+import IntegrationServices.Bank.IBankService;
+import IntegrationServices.Bank.Swedbank;
+import IntegrationServices.DeliveryCompany.Courier;
+import IntegrationServices.DeliveryCompany.IDeliveryService;
+import IntegrationServices.DeliveryCompany.PostOffice;
+import Repository.User.UserRepositoryFileImplementation;
+import Shop.LithuanianPVM_Implementation.LithuanianPVM;
+import Shop.OrderFactoryAPI.IOrderFactory;
+import Shop.PVM_API.IPVM;
+import Shop.RepositoryOrderAPI.IOrderRepository;
+import Shop.chinaProductFactory.ChinaProductFactory;
+import Shop.discountAPI.IDiscount;
+import Shop.domainServiceOrderAPI.IOrderServiceAPI;
+import Shop.domainServiceProductAPI.ProductServiceAPI;
+import Shop.domainServiceUserAPI.UserServiceAPI;
+import Shop.domainServiceUserAPIImplementation.ProductServiceImplementation;
+import Shop.domainServiceUserAPIImplementation.UserServiceAPIImplementation;
+import Shop.germanyProductFactory.GermanyProductFactory;
+import Shop.googleUserFactory.GoogleUserFactory;
+import Shop.internationalOrderFactory.InternationalOrderFactory;
+import Shop.localOrderFactory.LocalOrderFactory;
+import Shop.noDiscount_Implementation.NoDiscount;
+import Shop.productFactoryAPI.IProductFactory;
+import Shop.repositoryOrderFileImplementation.OrderRepositoryFileImplementation;
+import Shop.repositoryProductAPI.IProductRepository;
+import Shop.repositoryProductFileImplementation.ProductRepositoryFileImplementation;
+import Shop.repositoryUserAPI.IUserRepository;
+import Shop.userFactoryAPI.IUserFactory;
+import TotalPriceFacadeService.ITotalPriceFacadeService;
+import TotalPriceFacadeService.TotalPriceFacadeService;
+import facadeServices.User.IUserService;
+import facadeServices.User.UserService;
+
+@Configuration
+public class AppConfiguration1 {
+	
+    @Bean
+    public IUserService iUserService(UserServiceAPI userServiceAPI, IBankService bankService,IUserFactory userFactory, IUserRepository userRepository) {
+        return new UserService(userServiceAPI,bankService,userFactory,userRepository);
+    }
+    
+    @Bean
+    public IUserRepository iUserRepository() {
+        return new UserRepositoryFileImplementation();
+    }
+    
+    @Bean
+    public UserServiceAPI userServiceAPI() {
+        return new UserServiceAPIImplementation();
+    }
+    
+    @Bean
+    public IUserFactory iUserFactory() {
+        return new GoogleUserFactory();
+    }
+    
+    @Bean
+    public IProductService productService(ProductServiceAPI productServiceApi, IProductRepository productRepository,IProductFactory productFactory) {
+        return new ProductService(productServiceApi,productRepository,productFactory);
+    }
+    
+    @Bean
+    public IProductRepository iProductRepository() {
+        return new ProductRepositoryFileImplementation();
+    }
+    
+    @Bean
+    public IDiscount iDiscount() {
+        return new NoDiscount();
+    }
+    
+    @Bean
+    public IPVM ipvm() {
+        return new LithuanianPVM();
+    }
+    
+    @Bean
+    public ProductServiceAPI productServiceAPI(IDiscount discount, IPVM pvm) {
+        return new ProductServiceImplementation(discount,pvm);
+    }
+    
+    @Bean
+    public IProductFactory iProductFactory() {
+        return new GermanyProductFactory();
+    }
+    
+    @Bean
+    public IOrderService iOrderService(IBankService bankService, IOrderServiceAPI orderServiceAPI,
+    		IOrderFactory orderFactory,
+    		IOrderRepository orderRepository,
+    		IUserRepository userRepository,
+    		IProductRepository productRepository,
+    		@Qualifier ("LithuanianDeliveryService") IDeliveryServiceAPI deliveryService) {
+        return new OrderService(bankService,orderServiceAPI,orderFactory,orderRepository,userRepository,productRepository,deliveryService);
+    }
+    @Bean(name = "LithuanianDeliveryService")
+    public IDeliveryServiceAPI deliveryServiceLithuanian(@Qualifier ("CourierDelivery") IDeliveryService deliveryService) {
+        return new LithuanianDeliveryService(deliveryService);
+    }
+    @Bean(name = "EstonianDeliveryService")
+    public IDeliveryServiceAPI deliveryServiceEstonian(@Qualifier ("PostDelivery") IDeliveryService deliveryService) {
+        return new EstonianDeliveryService(deliveryService);
+    }
+    @Bean
+    public IBankService iBankService() {
+        return new Swedbank();
+    }
+    
+    @Bean(name = "PostDelivery")
+    public IDeliveryService iDeliveryServicePost() {
+        return new PostOffice();
+    }
+    @Bean(name = "CourierDelivery")
+    public IDeliveryService iDeliveryServiceCourier() {
+        return new Courier();
+    }
+    @Bean
+    public IOrderRepository iOrderRepository() {
+        return new OrderRepositoryFileImplementation();
+    }
+    
+    @Bean
+    public IOrderServiceAPI iOrderServiceAPI() {
+        return new OrderServiceImplementation();
+    }
+    
+    @Bean
+    public IOrderFactory iOrderFactory() {
+        return new InternationalOrderFactory();
+    }
+    @Bean
+    public ITotalPriceFacadeService totalPriceFacadeService(ProductServiceAPI productServiceApi,IProductRepository productRepository) {
+        return new TotalPriceFacadeService(productServiceApi,productRepository);
+    }
+}

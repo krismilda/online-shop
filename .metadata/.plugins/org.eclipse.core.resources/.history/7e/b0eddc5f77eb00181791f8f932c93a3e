@@ -1,0 +1,8 @@
+package IntegrationServices.Bank;
+
+public interface IBankService {
+	
+	public boolean pay();
+	public String getPaymentDetails(int productID);
+	
+}

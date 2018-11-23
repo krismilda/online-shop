@@ -1,0 +1,13 @@
+package DomainAPI.Order;
+
+import Domain.Order.Order;
+import Domain.Order.InternationalOrder;
+
+public class InternationalOrderFactory implements IOrderFactory
+{
+
+	public Order createOrder(int userId, int productID) {
+		return new InternationalOrder(userId, productID);
+	}
+
+}

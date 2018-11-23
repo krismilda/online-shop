@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Elektroninė parduotuvė</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h2>Naujas Produktas</h2>
+        <form action="/product/create" method="POST" modelAttribute="product" id="product">
+	<table>
+	<tr>
+		<td>
+		 Pavadinimas:
+		</td>
+		<td>
+		<input type="text" name="name">
+		</td>
+	</tr>
+		<tr>
+		<td>
+		  Savikaina:
+		</td>
+		<td>
+		<input type="text" name="primeCost"><br>
+		</td>
+	</tr>
+		<tr>
+		<td>
+		  Tipas:
+		</td>
+		<td>
+         <select name="type" form="product">
+            <OPTION value="TV" >Televizorius</OPTION>
+            <OPTION value="Computer">Kompiuteris</OPTION>
+</select>
+		</td>
+	</tr>
+	</table>
+	<button>Sukurti</button>
+    </body>
+</html>

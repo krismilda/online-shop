@@ -1,0 +1,21 @@
+package Domain.Order;
+
+import Shop.domainOrderAPI.Order;
+
+public class LocalOrder extends Order
+{
+	public LocalOrder (int userID, int productID) {
+		super(userID, productID);
+		this.deliveryPrice=2.5;
+	}
+	@Override
+	public double getDeliveryPrice() {
+		return this.deliveryPrice;
+	}
+
+	@Override
+	public String getOrderType() {
+		return "Local";
+	}
+
+}

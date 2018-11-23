@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Elektroninė parduotuvė</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h2>Naujas Užsakymas</h2>
+        <form action="/order/create" method="POST" modelAttribute="order">
+	<table>
+		<tr>
+		<td>
+		 Nautotojo ID:
+		</td>
+		<td>
+		<input type="text" name="userID">
+		</td>
+	</tr>
+	<tr>
+		<td>
+		 Prekės ID:
+		</td>
+		<td>
+		<input type="text" name="productID">
+		</td>
+	</tr>
+	</table>
+	<button>Sukurti</button>
+    </body>
+</html>

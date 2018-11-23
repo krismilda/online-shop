@@ -1,0 +1,17 @@
+package UserAbstractFactory;
+
+import Shop.domainPremiumGoogleUser.PremiumGoogleUser;
+import Shop.domainSimpleGoogleUser.SimpleGoogleUser;
+import Shop.domainUserAPI.User;
+import Shop.userFactoryAPI.IUserFactory;
+
+public class GoogleUserFactory implements IUserFactory
+{
+	public User createSimpleUser(String name, String email, String address, String surname) {
+		return new SimpleGoogleUser(name, email, address, surname);
+	}
+
+	public User createPremiumUser(String name, String email, String address, String surname) {
+		return new PremiumGoogleUser(name, email, address, surname);
+	}
+}

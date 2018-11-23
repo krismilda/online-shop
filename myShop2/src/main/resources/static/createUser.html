@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Elektroninė parduotuvė</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h2>Naujas Naudotojas</h2>
+        <form action="/user/create" method="POST" modelAttribute="user">
+	<table>
+	<tr>
+		<td>
+		  First name:
+		</td>
+		<td>
+		<input type="text" name="fname">
+		</td>
+	</tr>
+		<tr>
+		<td>
+		  Last name:
+		</td>
+		<td>
+		<input type="text" name="lname"><br>
+		</td>
+	</tr>
+		<tr>
+		<td>
+		  Email:
+		</td>
+		<td>
+		<input type="email" name="lemail">
+		</td>
+	</tr>
+			<tr>
+		<td>
+		  Address:
+		</td>
+		<td>
+		<input type="text" name="address">
+		</td>
+	</tr>
+				<tr>
+		<td>
+		  Premium:
+		</td>
+		<td>
+		<input type="checkbox" name="premium" value="True">
+		</td>
+	</table>
+	<button>Sukurti</button>
+    </body>
+</html>

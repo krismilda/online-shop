@@ -1,0 +1,12 @@
+package FacadeServiceProduct;
+
+import java.io.IOException;
+import java.util.List;
+
+import Domain.Products.IProduct;
+
+public interface IProductService {
+	public IProduct getProductByID(int id) throws ClassNotFoundException, IOException;
+	public List<IProduct> getAllProducts() throws IOException, ClassNotFoundException;
+	public void createProduct(double primeCost, String name, String type) throws IOException, ClassNotFoundException;
+}
